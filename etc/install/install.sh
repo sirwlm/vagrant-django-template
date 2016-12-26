@@ -14,17 +14,19 @@ VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
 LOCAL_SETTINGS_PATH="/$PROJECT_NAME/settings/local.py"
 
 # Install essential packages from Apt
+add-apt-repository -y ppa:fkrull/deadsnakes
 apt-get update -y
 # Python dev packages
-apt-get install -y build-essential python python3-dev
+apt-get install -y python3.6 build-essential python python3-dev
 # python-setuptools being installed manually
-wget https://bootstrap.pypa.io/ez_setup.py -O - | python3.4
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python3.6
 # Dependencies for image processing with Pillow (drop-in replacement for PIL)
 # supporting: jpeg, tiff, png, freetype, littlecms
 # (pip install pillow to get pillow itself, it is not in requirements.txt)
 apt-get install -y libjpeg-dev libtiff-dev zlib1g-dev libfreetype6-dev liblcms2-dev
 # Git (we'd rather avoid people keeping credentials for git commits in the repo, but sometimes we need it for pip requirements that aren't in PyPI)
 apt-get install -y git
+apt-get install -y nodejs npm babel
 
 # Postgresql
 if ! command -v psql; then
@@ -50,9 +52,12 @@ cp -p $PROJECT_DIR/etc/install/bashrc /home/vagrant/.bashrc
 su - vagrant -c "createdb $DB_NAME"
 
 # virtualenv setup for project
-su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR --python=/usr/bin/python3.4 && \
+su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR --python=/usr/bin/python3.6 && \
     echo $PROJECT_DIR > $VIRTUALENV_DIR/.project && \
     $VIRTUALENV_DIR/bin/pip install -r $PROJECT_DIR/requirements.txt"
+    
+# npm packages
+su -vagrant -c "cd $PROJECT_DIR && npm install react react-dom"
 
 echo "workon $VIRTUALENV_NAME" >> /home/vagrant/.bashrc
 
