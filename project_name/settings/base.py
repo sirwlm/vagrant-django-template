@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'core',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,9 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = 'pl'
 
-TIME_ZONE = 'Europe/London'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
