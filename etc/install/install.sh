@@ -12,21 +12,16 @@ VIRTUALENV_NAME=$PROJECT_NAME
 PROJECT_DIR=/home/vagrant/$PROJECT_NAME
 VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
 LOCAL_SETTINGS_PATH="/$PROJECT_NAME/settings/local.py"
-DJANGO_DIR=$PROJECT_DIR
 
 # Install essential packages from Apt
 apt-get update -y
-apt-get upgrade -y
 
 # Update bash_aliases with correct projcet_dir
 mv $PROJECT_DIR/etc/install/bashrc $PROJECT_DIR/etc/install/bashrc.sed
-mv $PROJECT_DIR/etc/install/bashalias $PROJECT_DIR/etc/install/bashalias.sed
+mv $PROJECT_DIR/etc/install/bash_alias $PROJECT_DIR/etc/install/bash_alias.sed
 
 sed -e 's/DJANGO_DIR/$PROJECT_DIR/g' $PROJECT_DIR/etc/install/bashrc.sed > $PROJECT_DIR/etc/install/bashrc
-sed -e 's/DJANGO_DIR/$PROJECT_DIR/g' $PROJECT_DIR/etc/install/bashalias.sed > $PROJECT_DIR/etc/install/bashalias
-
-
-echo 'Updated bashrc and bash_alias (run whichalias to see available commands)'
+sed -e 's/DJANGO_DIR/$PROJECT_DIR/g' $PROJECT_DIR/etc/install/bash_alias.sed > $PROJECT_DIR/etc/install/bash_alias
 
 # Python dev packages
 apt-get install -y build-essential python python3-dev
